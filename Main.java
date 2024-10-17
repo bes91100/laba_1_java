@@ -1,11 +1,61 @@
 //Вариант 3
-
+import java.util.ArrayList;
 import java.util.List;
-
-import static first_laba.DeterminantCalculator.determinant;
-import static first_laba.PalindromeFinder.findPalindromes;
-
 public class Main {
+    public static double determinant(double[][] matrix)//Функция по вычислению определителя матрицы
+    {
+        if (matrix.length == 4 || matrix[0].length == 4)
+        {
+            return matrix[0][0] * (matrix[1][1] * (matrix[2][2] * matrix[3][3] - matrix[2][3] * matrix[3][2]) -
+                    matrix[1][2] * (matrix[2][1] * matrix[3][3] - matrix[2][3] * matrix[3][1]) +
+                    matrix[1][3] * (matrix[2][1] * matrix[3][2] - matrix[2][2] * matrix[3][1])) -
+
+                    matrix[0][1] * (matrix[1][0] * (matrix[2][2] * matrix[3][3] - matrix[2][3] * matrix[3][2]) -
+                            matrix[1][2] * (matrix[2][0] * matrix[3][3] - matrix[2][3] * matrix[3][0]) +
+                            matrix[1][3] * (matrix[2][0] * matrix[3][2] - matrix[2][2] * matrix[3][0])) +
+
+                    matrix[0][2] * (matrix[1][0] * (matrix[2][1] * matrix[3][3] - matrix[2][3] * matrix[3][1]) -
+                            matrix[1][1] * (matrix[2][0] * matrix[3][3] - matrix[2][3] * matrix[3][0]) +
+                            matrix[1][3] * (matrix[2][0] * matrix[3][1] - matrix[2][1] * matrix[3][0])) -
+
+                    matrix[0][3] * (matrix[1][0] * (matrix[2][1] * matrix[3][2] - matrix[2][2] * matrix[3][1]) -
+                            matrix[1][1] * (matrix[2][0] * matrix[3][2] - matrix[2][2] * matrix[3][0]) +
+                            matrix[1][2] * (matrix[2][0] * matrix[3][1] - matrix[2][1] * matrix[3][0]));
+        }
+        if (matrix.length == 3 || matrix[0].length == 3)
+        {
+            return  matrix[0][0] * (matrix[1][1] * matrix[2][2] - matrix[1][2] * matrix[2][1]) -
+                    matrix[0][1] * (matrix[1][0] * matrix[2][2] - matrix[1][2] * matrix[2][0]) +
+                    matrix[0][2] * (matrix[1][0] * matrix[2][1] - matrix[1][1] * matrix[2][0]);
+        }
+        if (matrix.length == 2 || matrix[0].length == 2)
+        {
+            return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+        }
+        if (matrix.length == 1 || matrix[0].length == 1)
+        {
+            return matrix[0][0];
+        }
+        return 0;
+    }
+    public static List<String> findPalindromes(String sentence) //Функция по поиску слов палиндромов в предложении
+    {
+        List<String> palindromes = new ArrayList<>();
+        String[] words = sentence.toLowerCase().split("\\s+"); // Разбиваем предложение на слова
+
+        for (String word : words) {
+            if (isPalindrome(word)) {
+                palindromes.add(word);
+            }
+        }
+
+        return palindromes;
+    }
+
+    public static boolean isPalindrome(String word) {
+        String reversedWord = new StringBuilder(word).reverse().toString();
+        return word.equals(reversedWord);
+    }
     public static void main(String[] args) {
 
 //a.       Определить количество строк только с положительными/отрицательными элементами матрицы.
